@@ -2,13 +2,14 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สู้ๆนะค้าบคนเก่ง</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ถึงเธอ</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -19,6 +20,7 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+            touch-action: manipulation;
         }
 
         /* หน้าที่ 1 */
@@ -61,47 +63,36 @@
             display: none;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
+            overflow-y: auto;
         }
 
         .container {
             text-align: center;
             z-index: 10;
-            padding: 40px;
+            padding: 30px 20px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border-radius: 30px;
+            border-radius: 25px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
             animation: fadeIn 1s ease-in;
+            max-width: 90%;
         }
 
         h1 {
             color: #fff;
-            font-size: 3.5em;
-            margin-bottom: 30px;
+            font-size: clamp(1.8em, 6vw, 3.5em);
+            margin-bottom: 20px;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             animation: pulse 2s ease-in-out infinite;
-        }
-
-        .image-container {
-            margin: 30px 0;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .image-container img {
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            line-height: 1.3;
         }
 
         .btn {
             margin-top: 20px;
-            padding: 15px 40px;
-            font-size: 1.3em;
+            padding: 15px 35px;
+            font-size: clamp(1em, 4vw, 1.3em);
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
@@ -110,83 +101,86 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             font-weight: bold;
+            touch-action: manipulation;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
+        .btn:active {
+            transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
 
         /* เกม */
         .game-container {
             text-align: center;
-            padding: 40px;
+            padding: 20px;
+            width: 100%;
         }
 
         .game-question {
-            font-size: 3em;
+            font-size: clamp(1.8em, 6vw, 3em);
             color: #fff;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
             animation: pulse 2s ease-in-out infinite;
+            padding: 0 15px;
+            line-height: 1.3;
         }
 
         .answers {
             position: relative;
-            width: 600px;
-            height: 200px;
+            width: min(90vw, 500px);
+            height: 250px;
             margin: 0 auto;
         }
 
         .answer-btn {
-            padding: 20px 40px;
-            font-size: 1.5em;
+            padding: 18px 30px;
+            font-size: clamp(1.1em, 4vw, 1.5em);
             border: none;
             border-radius: 20px;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             margin: 10px;
+            touch-action: manipulation;
+            white-space: nowrap;
         }
 
-        #answer1 {
+        #answer1, #answer3 {
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             color: #333;
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 30%;
             transform: translate(-50%, -50%);
         }
 
-        #answer3 {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            color: #333;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        #answer4 {
+        #answer2, #answer4 {
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             color: #333;
+            position: absolute;
+            left: 50%;
+            bottom: 20%;
+            transform: translateX(-50%);
         }
 
-        .answer-btn:hover {
-            transform: scale(1.05);
+        .answer-btn:active {
+            transform: scale(0.98);
         }
 
         /* จดหมาย */
         .envelope-container {
             position: relative;
-            width: 600px;
-            height: 400px;
+            width: min(90vw, 600px);
+            height: auto;
+            min-height: 400px;
             perspective: 1000px;
+            margin: 20px auto;
         }
 
         .envelope {
-            position: absolute;
+            position: relative;
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
@@ -197,6 +191,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
+            min-height: 400px;
             background: linear-gradient(135deg, #ffffff 0%, #f0e6f6 100%);
             border: 3px solid #d4a5d4;
             border-radius: 10px;
@@ -223,19 +218,20 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3em;
+            font-size: clamp(2em, 8vw, 3em);
             animation: pulse 2s ease-in-out infinite;
         }
 
         .letter-paper {
             position: absolute;
             width: 90%;
-            height: 85%;
+            height: auto;
+            min-height: 85%;
             top: 7.5%;
             left: 5%;
             background: #fffef7;
             border-radius: 8px;
-            padding: 40px 35px;
+            padding: 25px 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             opacity: 0;
             transform: translateY(20px);
@@ -252,14 +248,14 @@
 
         .letter-header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px dashed #d4a5d4;
         }
 
         .flower {
-            font-size: 2.5em;
-            margin: 0 8px;
+            font-size: clamp(1.8em, 6vw, 2.5em);
+            margin: 0 5px;
             display: inline-block;
             animation: float 3s ease-in-out infinite;
         }
@@ -273,103 +269,69 @@
         }
 
         .letter-content {
-            font-size: 1.3em;
+            font-size: clamp(1em, 3.5vw, 1.3em);
             line-height: 1.9;
             color: #2c2c2c;
             text-align: left;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-family: 'Segoe UI', 'Sarabun', sans-serif;
-            text-indent: 40px;
+            text-indent: 30px;
         }
 
         .letter-signature {
             text-align: right;
-            font-size: 1.4em;
+            font-size: clamp(1em, 3.5vw, 1.4em);
             color: #6b4e71;
             font-style: italic;
-            margin-top: 25px;
+            margin-top: 20px;
             font-weight: 600;
         }
 
         .stamp {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
+            top: 15px;
+            right: 15px;
+            width: clamp(45px, 12vw, 60px);
+            height: clamp(45px, 12vw, 60px);
             border: 3px dashed #d4a5d4;
             border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
+            font-size: clamp(1.5em, 5vw, 2em);
             background: rgba(255, 255, 255, 0.5);
             transform: rotate(15deg);
         }
 
         .decorative-corner {
             position: absolute;
-            font-size: 2em;
+            font-size: clamp(1.3em, 4vw, 2em);
             color: #d4a5d4;
         }
 
         .corner-tl {
-            top: 10px;
-            left: 10px;
+            top: 8px;
+            left: 8px;
         }
 
         .corner-tr {
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
         }
 
         .corner-bl {
-            bottom: 10px;
-            left: 10px;
+            bottom: 8px;
+            left: 8px;
         }
 
         .corner-br {
-            bottom: 10px;
-            right: 10px;
-        }
-
-        @keyframes envelopeOpen {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes flapOpen {
-            0% {
-                transform: rotateX(0deg);
-            }
-            50% {
-                transform: rotateX(0deg);
-            }
-            100% {
-                transform: rotateX(-180deg);
-            }
-        }
-
-        @keyframes letterSlideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            bottom: 8px;
+            right: 8px;
         }
 
         .heart {
             position: absolute;
-            font-size: 50px;
+            font-size: clamp(30px, 8vw, 50px);
             animation: heartFloat 4s ease-in infinite;
             opacity: 0;
         }
@@ -393,7 +355,7 @@
 
         .petal {
             position: absolute;
-            font-size: 30px;
+            font-size: clamp(20px, 6vw, 30px);
             animation: petalFall 8s ease-in infinite;
             opacity: 0;
         }
@@ -423,7 +385,7 @@
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-15px);
             }
         }
 
@@ -482,16 +444,66 @@
                 opacity: 0;
             }
         }
+
+        @keyframes envelopeOpen {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flapOpen {
+            0% {
+                transform: rotateX(0deg);
+            }
+            50% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(-180deg);
+            }
+        }
+
+        @keyframes letterSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* สำหรับมือถือขนาดเล็ก */
+        @media (max-width: 480px) {
+            .answers {
+                height: 200px;
+            }
+            
+            .answer-btn {
+                padding: 15px 25px;
+            }
+
+            .letter-paper {
+                padding: 20px 15px;
+            }
+
+            .letter-content {
+                text-indent: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- หน้าที่ 1 -->
     <div id="page1">
         <div class="container">
-            <h1>💖 จดหมายนี้ถึงคนไข้ตาแป๋ว 💖</h1>
-            <!-- <div class="image-container">
-                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=600&fit=crop" alt="Encouragement">
-            </div> -->
+            <h1>💖 จดหมายนี้ถึงเธอคนไข้ตาแป๋ว 💖</h1>
             <button class="btn" onclick="goToGame()">✨ แบบทดสอบหัวใจ ✨</button>
         </div>
     </div>
@@ -501,7 +513,7 @@
         <div class="game-container">
             <div class="game-question">💭 คิดถึงกันม้ายย 💭</div>
             <div class="answers">
-                <button id="answer1" class="answer-btn" onclick="runAway()">ไม่คิดถึง</button>
+                <button id="answer1" class="answer-btn" ontouchstart="runAway()" onclick="runAway()">ไม่คิดถึง</button>
                 <button id="answer2" class="answer-btn" onclick="showLetter()">คิดถึงมากกกก</button>
             </div>
         </div>
@@ -512,7 +524,7 @@
         <div class="game-container">
             <div class="game-question">😳 คิดถึงจริงหรอเธออ เขินนะ 😳</div>
             <div class="answers">
-                <button id="answer3" class="answer-btn" onclick="runAway2()">ไม่จริงงง</button>
+                <button id="answer3" class="answer-btn" ontouchstart="runAway2()" onclick="runAway2()">ไม่จริงงง</button>
                 <button id="answer4" class="answer-btn" onclick="goToLetter()">จริงจ้าาา</button>
             </div>
         </div>
@@ -548,6 +560,11 @@
     </div>
 
     <script>
+        // ป้องกันการ zoom บนมือถือ
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+
         // ฟังก์ชันไปหน้าเกม
         function goToGame() {
             document.getElementById('page1').style.display = 'none';
@@ -557,20 +574,20 @@
         // ฟังก์ชันปุ่มหนี
         function runAway() {
             const btn = document.getElementById('answer1');
-            const container = document.querySelector('.answers');
+            const container = document.querySelector('#page2 .answers');
             const containerRect = container.getBoundingClientRect();
             
             const maxX = containerRect.width - btn.offsetWidth;
             const maxY = containerRect.height - btn.offsetHeight;
             
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+            const randomX = Math.max(0, Math.random() * maxX);
+            const randomY = Math.max(0, Math.random() * maxY);
             
             btn.style.left = randomX + 'px';
             btn.style.top = randomY + 'px';
         }
 
-        // ฟังก์ชันแสดงจดหมาย
+        // ฟังก์ชันแสดงหน้า 3
         function showLetter() {
             document.getElementById('page2').style.display = 'none';
             document.getElementById('page3').style.display = 'flex';
@@ -585,8 +602,8 @@
             const maxX = containerRect.width - btn.offsetWidth;
             const maxY = containerRect.height - btn.offsetHeight;
             
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+            const randomX = Math.max(0, Math.random() * maxX);
+            const randomY = Math.max(0, Math.random() * maxY);
             
             btn.style.left = randomX + 'px';
             btn.style.top = randomY + 'px';
@@ -622,7 +639,7 @@
         function createFirework(x, y) {
             if (document.getElementById('page1').style.display !== 'none') {
                 const colors = ['#ff0000', '#ff69b4', '#ffd700', '#00ff00', '#00bfff', '#ff00ff'];
-                const particles = 30;
+                const particles = 20; // ลดจำนวนสำหรับมือถือ
 
                 for (let i = 0; i < particles; i++) {
                     const firework = document.createElement('div');
@@ -632,7 +649,7 @@
                     firework.style.background = colors[Math.floor(Math.random() * colors.length)];
                     
                     const angle = (Math.PI * 2 * i) / particles;
-                    const velocity = 50 + Math.random() * 100;
+                    const velocity = 40 + Math.random() * 80;
                     firework.style.setProperty('--x', Math.cos(angle) * velocity + 'px');
                     firework.style.setProperty('--y', Math.sin(angle) * velocity + 'px');
                     
@@ -680,15 +697,23 @@
         }
 
         // เริ่มเอฟเฟกต์หน้า 1
-        setInterval(createHeart, 800);
+        setInterval(createHeart, 1000);
         setInterval(() => {
             const x = Math.random() * window.innerWidth;
             const y = Math.random() * window.innerHeight;
             createFirework(x, y);
-        }, 1500);
-        setInterval(createSparkle, 500);
+        }, 2000); // ช้าลงเล็กน้อยสำหรับมือถือ
+        setInterval(createSparkle, 700);
 
-        // คลิกเพื่อสร้างพลุ (หน้า 1)
+        // สำหรับมือถือใช้ touch แทน click
+        document.addEventListener('touchstart', (e) => {
+            if (document.getElementById('page1').style.display !== 'none') {
+                const touch = e.touches[0];
+                createFirework(touch.clientX, touch.clientY);
+            }
+        });
+
+        // สำหรับคอมพิวเตอร์ยังใช้ click ได้
         document.addEventListener('click', (e) => {
             if (document.getElementById('page1').style.display !== 'none') {
                 createFirework(e.clientX, e.clientY);
