@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สู้ๆนะค้าบคนเก่ง</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* หน้าที่ 1 */
+        #page1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* หน้าที่ 2 - เกม */
+        #page2 {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            width: 100%;
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* หน้าที่ 3 - เกม 2 */
+        #page3 {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            width: 100%;
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* หน้าที่ 4 - จดหมาย */
+        #page4 {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            width: 100%;
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .image-container {
+            margin: 30px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .image-container img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* เกม */
+        .game-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .game-question {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .answers {
+            position: relative;
+            width: 600px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .answer-btn {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        #answer1 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #answer3 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #answer4 {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+        }
+
+        .answer-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* จดหมาย */
+        .envelope-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: envelopeOpen 2s ease-out forwards;
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #f0e6f6 100%);
+            border: 3px solid #d4a5d4;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: 0;
+            background: linear-gradient(135deg, #f5e6ff 0%, #e6d5f0 100%);
+            border: 3px solid #d4a5d4;
+            border-bottom: none;
+            transform-origin: top;
+            animation: flapOpen 2s ease-out forwards;
+            border-radius: 10px 10px 0 0;
+            z-index: 10;
+        }
+
+        .envelope-flap::before {
+            content: '💌';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .letter-paper {
+            position: absolute;
+            width: 90%;
+            height: 85%;
+            top: 7.5%;
+            left: 5%;
+            background: #fffef7;
+            border-radius: 8px;
+            padding: 40px 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: letterSlideUp 1.5s ease-out 2s forwards;
+            border: 2px solid #e8d5b7;
+            background-image: 
+                repeating-linear-gradient(
+                    transparent,
+                    transparent 30px,
+                    #e8d5b7 30px,
+                    #e8d5b7 31px
+                );
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #d4a5d4;
+        }
+
+        .flower {
+            font-size: 2.5em;
+            margin: 0 8px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .flower:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .flower:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .letter-content {
+            font-size: 1.3em;
+            line-height: 1.9;
+            color: #2c2c2c;
+            text-align: left;
+            margin-bottom: 30px;
+            font-family: 'Segoe UI', 'Sarabun', sans-serif;
+            text-indent: 40px;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-size: 1.4em;
+            color: #6b4e71;
+            font-style: italic;
+            margin-top: 25px;
+            font-weight: 600;
+        }
+
+        .stamp {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border: 3px dashed #d4a5d4;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(15deg);
+        }
+
+        .decorative-corner {
+            position: absolute;
+            font-size: 2em;
+            color: #d4a5d4;
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        @keyframes envelopeOpen {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flapOpen {
+            0% {
+                transform: rotateX(0deg);
+            }
+            50% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(-180deg);
+            }
+        }
+
+        @keyframes letterSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 50px;
+            animation: heartFloat 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 1s ease-out infinite;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 1.5s ease-in-out infinite;
+        }
+
+        .petal {
+            position: absolute;
+            font-size: 30px;
+            animation: petalFall 8s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- หน้าที่ 1 -->
+    <div id="page1">
+        <div class="container">
+            <h1>💖 จดหมายนี้ถึงคนไข้ตาแป๋ว 💖</h1>
+            <!-- <div class="image-container">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=600&fit=crop" alt="Encouragement">
+            </div> -->
+            <button class="btn" onclick="goToGame()">✨ แบบทดสอบหัวใจ ✨</button>
+        </div>
+    </div>
+
+    <!-- หน้าที่ 2 - เกม -->
+    <div id="page2">
+        <div class="game-container">
+            <div class="game-question">💭 คิดถึงกันม้ายย 💭</div>
+            <div class="answers">
+                <button id="answer1" class="answer-btn" onclick="runAway()">ไม่คิดถึง</button>
+                <button id="answer2" class="answer-btn" onclick="showLetter()">คิดถึงมากกกก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- หน้าที่ 3 - เกม 2 -->
+    <div id="page3">
+        <div class="game-container">
+            <div class="game-question">😳 คิดถึงจริงหรอเธออ เขินนะ 😳</div>
+            <div class="answers">
+                <button id="answer3" class="answer-btn" onclick="runAway2()">ไม่จริงงง</button>
+                <button id="answer4" class="answer-btn" onclick="goToLetter()">จริงจ้าาา</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- หน้าที่ 4 - จดหมาย -->
+    <div id="page4">
+        <div class="envelope-container">
+            <div class="envelope">
+                <div class="envelope-back"></div>
+                <div class="envelope-flap"></div>
+                <div class="letter-paper">
+                    <div class="stamp">💕</div>
+                    <div class="decorative-corner corner-tl">✿</div>
+                    <div class="decorative-corner corner-tr">✿</div>
+                    <div class="decorative-corner corner-bl">✿</div>
+                    <div class="decorative-corner corner-br">✿</div>
+                    
+                    <div class="letter-header">
+                        <span class="flower">🌸</span>
+                        <span class="flower">🌺</span>
+                        <span class="flower">🌸</span>
+                    </div>
+                    <div class="letter-content">
+                        หายไวๆนะเธออ คิดถึงเธอเหมือนกันนะฟ้า เธอต้องกินเยอะๆรู้มั้ย เธอเหนื่อยมากแล้วนะพักผ่อนบ้างนะเธอ รักเธอนะอาจจะฟังดูเราพูดบ่อยแต่ก็อยากบอกให้เธอรู้ไว้ทุกๆวันเลย เธอเก่งมากๆคนตาแป๋วเอ้ย!
+                    </div>
+                    <div class="letter-signature">
+                        ด้วยรักและห่วงใยจากไตเติ้ล 💕
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันไปหน้าเกม
+        function goToGame() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'flex';
+        }
+
+        // ฟังก์ชันปุ่มหนี
+        function runAway() {
+            const btn = document.getElementById('answer1');
+            const container = document.querySelector('.answers');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btn.offsetWidth;
+            const maxY = containerRect.height - btn.offsetHeight;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        // ฟังก์ชันแสดงจดหมาย
+        function showLetter() {
+            document.getElementById('page2').style.display = 'none';
+            document.getElementById('page3').style.display = 'flex';
+        }
+
+        // ฟังก์ชันปุ่มหนี 2
+        function runAway2() {
+            const btn = document.getElementById('answer3');
+            const container = document.querySelector('#page3 .answers');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btn.offsetWidth;
+            const maxY = containerRect.height - btn.offsetHeight;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        // ฟังก์ชันไปหน้าจดหมาย
+        function goToLetter() {
+            document.getElementById('page3').style.display = 'none';
+            document.getElementById('page4').style.display = 'flex';
+            
+            // เริ่มสร้างกลีบดอกไม้
+            setInterval(createPetal, 300);
+        }
+
+        // สร้างหัวใจลอย (หน้า 1)
+        function createHeart() {
+            if (document.getElementById('page1').style.display !== 'none') {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.getElementById('page1').appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+
+        // สร้างพลุ (หน้า 1)
+        function createFirework(x, y) {
+            if (document.getElementById('page1').style.display !== 'none') {
+                const colors = ['#ff0000', '#ff69b4', '#ffd700', '#00ff00', '#00bfff', '#ff00ff'];
+                const particles = 30;
+
+                for (let i = 0; i < particles; i++) {
+                    const firework = document.createElement('div');
+                    firework.classList.add('firework');
+                    firework.style.left = x + 'px';
+                    firework.style.top = y + 'px';
+                    firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    const angle = (Math.PI * 2 * i) / particles;
+                    const velocity = 50 + Math.random() * 100;
+                    firework.style.setProperty('--x', Math.cos(angle) * velocity + 'px');
+                    firework.style.setProperty('--y', Math.sin(angle) * velocity + 'px');
+                    
+                    document.getElementById('page1').appendChild(firework);
+
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1000);
+                }
+            }
+        }
+
+        // สร้างประกายดาว (หน้า 1)
+        function createSparkle() {
+            if (document.getElementById('page1').style.display !== 'none') {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() + 's';
+                document.getElementById('page1').appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1500);
+            }
+        }
+
+        // สร้างกลีบดอกไม้ (หน้า 4)
+        function createPetal() {
+            if (document.getElementById('page4').style.display === 'flex') {
+                const petals = ['🌸', '🌺', '🌼', '🌻', '🌷'];
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDelay = Math.random() * 2 + 's';
+                petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                document.getElementById('page4').appendChild(petal);
+
+                setTimeout(() => {
+                    petal.remove();
+                }, 8000);
+            }
+        }
+
+        // เริ่มเอฟเฟกต์หน้า 1
+        setInterval(createHeart, 800);
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createFirework(x, y);
+        }, 1500);
+        setInterval(createSparkle, 500);
+
+        // คลิกเพื่อสร้างพลุ (หน้า 1)
+        document.addEventListener('click', (e) => {
+            if (document.getElementById('page1').style.display !== 'none') {
+                createFirework(e.clientX, e.clientY);
+            }
+        });
+    </script>
+</body>
+</html>
