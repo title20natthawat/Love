@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ถึงเธอ</title>
+    <title>สู้ๆนะค้าบคนเก่ง</title>
     <style>
         * {
             margin: 0;
@@ -63,17 +63,17 @@
             display: none;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 10px;
             overflow-y: auto;
         }
 
         .container {
             text-align: center;
             z-index: 10;
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 25px 15px;
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border-radius: 25px;
+            border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.2);
             animation: fadeIn 1s ease-in;
@@ -82,67 +82,73 @@
 
         h1 {
             color: #fff;
-            font-size: clamp(1.8em, 6vw, 3.5em);
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             animation: pulse 2s ease-in-out infinite;
-            line-height: 1.3;
+            line-height: 1.4;
+            padding: 0 5px;
         }
 
         .btn {
-            margin-top: 20px;
-            padding: 15px 35px;
-            font-size: clamp(1em, 4vw, 1.3em);
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 1em;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             font-weight: bold;
             touch-action: manipulation;
         }
 
         .btn:active {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transform: scale(0.95);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         /* เกม */
         .game-container {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .game-question {
-            font-size: clamp(1.8em, 6vw, 3em);
+            font-size: 1.4em;
             color: #fff;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
             animation: pulse 2s ease-in-out infinite;
-            padding: 0 15px;
-            line-height: 1.3;
+            padding: 0 10px;
+            line-height: 1.4;
         }
 
         .answers {
             position: relative;
-            width: min(90vw, 500px);
-            height: 250px;
+            width: 85vw;
+            max-width: 300px;
+            height: 180px;
             margin: 0 auto;
         }
 
         .answer-btn {
-            padding: 18px 30px;
-            font-size: clamp(1.1em, 4vw, 1.5em);
+            padding: 12px 20px;
+            font-size: 1em;
             border: none;
-            border-radius: 20px;
+            border-radius: 15px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             font-weight: bold;
             transition: all 0.2s ease;
-            margin: 10px;
             touch-action: manipulation;
             white-space: nowrap;
         }
@@ -152,7 +158,7 @@
             color: #333;
             position: absolute;
             left: 50%;
-            top: 30%;
+            top: 25%;
             transform: translate(-50%, -50%);
         }
 
@@ -161,28 +167,28 @@
             color: #333;
             position: absolute;
             left: 50%;
-            bottom: 20%;
+            bottom: 15%;
             transform: translateX(-50%);
         }
 
         .answer-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.95);
         }
 
         /* จดหมาย */
         .envelope-container {
             position: relative;
-            width: min(90vw, 600px);
+            width: 90vw;
+            max-width: 280px;
             height: auto;
-            min-height: 400px;
             perspective: 1000px;
-            margin: 20px auto;
+            margin: 10px auto;
         }
 
         .envelope {
             position: relative;
             width: 100%;
-            height: 100%;
+            min-height: 380px;
             transform-style: preserve-3d;
             animation: envelopeOpen 2s ease-out forwards;
         }
@@ -191,11 +197,11 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            min-height: 400px;
+            min-height: 380px;
             background: linear-gradient(135deg, #ffffff 0%, #f0e6f6 100%);
-            border: 3px solid #d4a5d4;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 2px solid #d4a5d4;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         }
 
         .envelope-flap {
@@ -204,11 +210,11 @@
             height: 50%;
             top: 0;
             background: linear-gradient(135deg, #f5e6ff 0%, #e6d5f0 100%);
-            border: 3px solid #d4a5d4;
+            border: 2px solid #d4a5d4;
             border-bottom: none;
             transform-origin: top;
             animation: flapOpen 2s ease-out forwards;
-            border-radius: 10px 10px 0 0;
+            border-radius: 8px 8px 0 0;
             z-index: 10;
         }
 
@@ -218,44 +224,44 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: clamp(2em, 8vw, 3em);
+            font-size: 2em;
             animation: pulse 2s ease-in-out infinite;
         }
 
         .letter-paper {
             position: absolute;
-            width: 90%;
+            width: 92%;
             height: auto;
-            min-height: 85%;
-            top: 7.5%;
-            left: 5%;
+            min-height: 350px;
+            top: 5%;
+            left: 4%;
             background: #fffef7;
-            border-radius: 8px;
-            padding: 25px 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 6px;
+            padding: 18px 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
             animation: letterSlideUp 1.5s ease-out 2s forwards;
             border: 2px solid #e8d5b7;
             background-image: 
                 repeating-linear-gradient(
                     transparent,
-                    transparent 30px,
-                    #e8d5b7 30px,
-                    #e8d5b7 31px
+                    transparent 25px,
+                    #e8d5b7 25px,
+                    #e8d5b7 26px
                 );
         }
 
         .letter-header {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 2px dashed #d4a5d4;
         }
 
         .flower {
-            font-size: clamp(1.8em, 6vw, 2.5em);
-            margin: 0 5px;
+            font-size: 1.5em;
+            margin: 0 4px;
             display: inline-block;
             animation: float 3s ease-in-out infinite;
         }
@@ -269,95 +275,100 @@
         }
 
         .letter-content {
-            font-size: clamp(1em, 3.5vw, 1.3em);
-            line-height: 1.9;
+            font-size: 0.85em;
+            line-height: 1.7;
             color: #2c2c2c;
             text-align: left;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             font-family: 'Segoe UI', 'Sarabun', sans-serif;
-            text-indent: 30px;
+            text-indent: 20px;
         }
 
         .letter-signature {
             text-align: right;
-            font-size: clamp(1em, 3.5vw, 1.4em);
+            font-size: 0.9em;
             color: #6b4e71;
             font-style: italic;
-            margin-top: 20px;
+            margin-top: 15px;
             font-weight: 600;
+            line-height: 1.4;
         }
 
         .stamp {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            width: clamp(45px, 12vw, 60px);
-            height: clamp(45px, 12vw, 60px);
-            border: 3px dashed #d4a5d4;
-            border-radius: 5px;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            border: 2px dashed #d4a5d4;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.5em, 5vw, 2em);
+            font-size: 1.3em;
             background: rgba(255, 255, 255, 0.5);
             transform: rotate(15deg);
         }
 
         .decorative-corner {
             position: absolute;
-            font-size: clamp(1.3em, 4vw, 2em);
+            font-size: 1.2em;
             color: #d4a5d4;
         }
 
         .corner-tl {
-            top: 8px;
-            left: 8px;
+            top: 6px;
+            left: 6px;
         }
 
         .corner-tr {
-            top: 8px;
-            right: 8px;
+            top: 6px;
+            right: 6px;
         }
 
         .corner-bl {
-            bottom: 8px;
-            left: 8px;
+            bottom: 6px;
+            left: 6px;
         }
 
         .corner-br {
-            bottom: 8px;
-            right: 8px;
+            bottom: 6px;
+            right: 6px;
         }
 
         .heart {
             position: absolute;
-            font-size: clamp(30px, 8vw, 50px);
+            font-size: 30px;
             animation: heartFloat 4s ease-in infinite;
             opacity: 0;
+            pointer-events: none;
         }
 
         .firework {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             border-radius: 50%;
             animation: explode 1s ease-out infinite;
+            pointer-events: none;
         }
 
         .sparkle {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 4px;
+            height: 4px;
             background: white;
             border-radius: 50%;
             animation: sparkleAnim 1.5s ease-in-out infinite;
+            pointer-events: none;
         }
 
         .petal {
             position: absolute;
-            font-size: clamp(20px, 6vw, 30px);
+            font-size: 20px;
             animation: petalFall 8s ease-in infinite;
             opacity: 0;
+            pointer-events: none;
         }
 
         @keyframes fadeIn {
@@ -385,7 +396,7 @@
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-15px);
+                transform: translateY(-10px);
             }
         }
 
@@ -401,7 +412,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) scale(1.5);
+                transform: translateY(-100vh) scale(1.3);
                 opacity: 0;
             }
         }
@@ -471,30 +482,11 @@
         @keyframes letterSlideUp {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             100% {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        /* สำหรับมือถือขนาดเล็ก */
-        @media (max-width: 480px) {
-            .answers {
-                height: 200px;
-            }
-            
-            .answer-btn {
-                padding: 15px 25px;
-            }
-
-            .letter-paper {
-                padding: 20px 15px;
-            }
-
-            .letter-content {
-                text-indent: 20px;
             }
         }
     </style>
@@ -503,7 +495,7 @@
     <!-- หน้าที่ 1 -->
     <div id="page1">
         <div class="container">
-            <h1>💖 จดหมายนี้ถึงเธอคนไข้ตาแป๋ว 💖</h1>
+            <h1>💖 จดหมายนี้<br>ถึงคนไข้ตาแป๋ว 💖</h1>
             <button class="btn" onclick="goToGame()">✨ แบบทดสอบหัวใจ ✨</button>
         </div>
     </div>
@@ -522,7 +514,7 @@
     <!-- หน้าที่ 3 - เกม 2 -->
     <div id="page3">
         <div class="game-container">
-            <div class="game-question">😳 คิดถึงจริงหรอเธออ เขินนะ 😳</div>
+            <div class="game-question">😳 คิดถึงจริงหรอเธออ<br>เขินนะ 😳</div>
             <div class="answers">
                 <button id="answer3" class="answer-btn" ontouchstart="runAway2()" onclick="runAway2()">ไม่จริงงง</button>
                 <button id="answer4" class="answer-btn" onclick="goToLetter()">จริงจ้าาา</button>
@@ -549,10 +541,10 @@
                         <span class="flower">🌸</span>
                     </div>
                     <div class="letter-content">
-                        หายไวๆนะเธออ คิดถึงเธอเหมือนกันนะฟ้า เธอต้องกินเยอะๆรู้มั้ย เธอเหนื่อยมากแล้วนะพักผ่อนบ้างนะเธอ รักเธอนะอาจจะฟังดูเราพูดบ่อยแต่ก็อยากบอกให้เธอรู้ไว้ทุกๆวันเลย เธอเก่งมากๆคนตาแป๋วเอ้ย!
+                        หายไวๆนะเธออ คิดถึงเธอเหมือนกันนะฟ้า เธอต้องกินเยอะๆรู้มั้ย เธอเหนื่อยมากแล้วนะพักผ่อนบ้างนะเธอ รักเธอนะอาจจะฟังดูเราพูดบ่อยแต่ก็อยากบอกให้เธอรู้ไว้ทุกๆวันเลย เธอเก่งมากๆคนตาแป๋วเอ้ย โตไปด้วยกันนะเธอ!
                     </div>
                     <div class="letter-signature">
-                        ด้วยรักและห่วงใยจากไตเติ้ล 💕
+                        ด้วยรักและห่วงใย<br>จากไตเติ้ล 💕
                     </div>
                 </div>
             </div>
@@ -615,10 +607,10 @@
             document.getElementById('page4').style.display = 'flex';
             
             // เริ่มสร้างกลีบดอกไม้
-            setInterval(createPetal, 300);
+            setInterval(createPetal, 400);
         }
 
-        // สร้างหัวใจลอย (หน้า 1)
+        // สร้างหัวใจลอย (หน้า 1) - ลดความหนาแน่น
         function createHeart() {
             if (document.getElementById('page1').style.display !== 'none') {
                 const heart = document.createElement('div');
@@ -635,11 +627,11 @@
             }
         }
 
-        // สร้างพลุ (หน้า 1)
+        // สร้างพลุ (หน้า 1) - ลดขนาด
         function createFirework(x, y) {
             if (document.getElementById('page1').style.display !== 'none') {
                 const colors = ['#ff0000', '#ff69b4', '#ffd700', '#00ff00', '#00bfff', '#ff00ff'];
-                const particles = 20; // ลดจำนวนสำหรับมือถือ
+                const particles = 15; // ลดเหลือ 15 สำหรับหน้าจอเล็ก
 
                 for (let i = 0; i < particles; i++) {
                     const firework = document.createElement('div');
@@ -649,7 +641,7 @@
                     firework.style.background = colors[Math.floor(Math.random() * colors.length)];
                     
                     const angle = (Math.PI * 2 * i) / particles;
-                    const velocity = 40 + Math.random() * 80;
+                    const velocity = 30 + Math.random() * 50; // ลดความเร็ว
                     firework.style.setProperty('--x', Math.cos(angle) * velocity + 'px');
                     firework.style.setProperty('--y', Math.sin(angle) * velocity + 'px');
                     
@@ -662,7 +654,7 @@
             }
         }
 
-        // สร้างประกายดาว (หน้า 1)
+        // สร้างประกายดาว (หน้า 1) - ลดความหนาแน่น
         function createSparkle() {
             if (document.getElementById('page1').style.display !== 'none') {
                 const sparkle = document.createElement('div');
@@ -678,7 +670,7 @@
             }
         }
 
-        // สร้างกลีบดอกไม้ (หน้า 4)
+        // สร้างกลีบดอกไม้ (หน้า 4) - ลดขนาด
         function createPetal() {
             if (document.getElementById('page4').style.display === 'flex') {
                 const petals = ['🌸', '🌺', '🌼', '🌻', '🌷'];
@@ -696,14 +688,14 @@
             }
         }
 
-        // เริ่มเอฟเฟกต์หน้า 1
-        setInterval(createHeart, 1000);
+        // เริ่มเอฟเฟกต์หน้า 1 - ลดความถี่
+        setInterval(createHeart, 1200);
         setInterval(() => {
             const x = Math.random() * window.innerWidth;
             const y = Math.random() * window.innerHeight;
             createFirework(x, y);
-        }, 2000); // ช้าลงเล็กน้อยสำหรับมือถือ
-        setInterval(createSparkle, 700);
+        }, 2500);
+        setInterval(createSparkle, 900);
 
         // สำหรับมือถือใช้ touch แทน click
         document.addEventListener('touchstart', (e) => {
